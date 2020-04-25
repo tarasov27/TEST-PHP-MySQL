@@ -45,6 +45,17 @@
             </div>
             <button type="button" name="sendPoll" id="sendPoll" class="btn btn-primary">Отправить</button>
         </form>
+        <?php
+          require 'configDB.php';
+
+            echo '<h1>Ответы</h1><ul>';
+          $query = $db->query('SELECT * FROM polls');
+          $query_1 = $db->query('SELECT * FROM users');
+          while($row = $query->fetch(PDO::FETCH_OBJ && $row_1 = $query_1->fetch(PDO::FETCH_OBJ))) {
+            echo '<li>Имя:<b>'.$row_1->name.'</b>Вопрос №1:<b>'.$row->question_1.'</b>Вопрос №2:<b>'.$row->question_2.'</b>Вопрос №3:<b>'.$row->question_3.'</b><b>'.'</b></li>';
+          }
+            echo '</ul>';
+        ?>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="js/script.js"></script>

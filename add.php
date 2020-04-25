@@ -5,20 +5,19 @@
   $poll2 = $_POST['poll2'];
   $poll3 = $_POST['poll3'];
 
-    $dsn = 'mysql:host=localhost;dbname=to-do';
-    $db = new PDO($dsn, 'root', 'root');
+    require 'configDB.php';
 
     $stmt = $db->prepare("INSERT INTO users (name, email) VALUES (:name, :email)");
-    $stmt->bindParam(':name', $name);
-    $stmt->bindParam(':email', $email);
+    $stmt->bindValue(':name', $name);
+    $stmt->bindValue(':email', $email);
     $stmt->execute();
     $inserted_id = $db->lastInsertId();
 
     $stmt = $db->prepare("INSERT INTO polls (question_1, question_2, question_3, user_id) VALUES (:poll1, :poll2, :poll3, :user_id);");
-    $stmt->bindParam(':poll1', $poll1);
-    $stmt->bindParam(':poll2', $poll2);
-    $stmt->bindParam(':poll3', $poll3);
-    $stmt->bindParam(':user_id', $inserted_id);
+    $stmt->bindValue(':poll1', $poll1);
+    $stmt->bindValue(':poll2', $poll2);
+    $stmt->bindValue(':poll3', $poll3);
+    $stmt->bindValue(':user_id', $inserted_id);
     $stmt->execute();
 
   // $sql = 'INSERT INTO users(name, email) VALUES(:name, :email)';
